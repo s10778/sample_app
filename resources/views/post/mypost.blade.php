@@ -26,6 +26,11 @@
         @foreach ($posts as $post)
             <div class="mx-4 sm:p-8">
                 <div class="mt-4">
+                    @if ($post->category === '施術')
+                <div class="text-blue-600 text-center  w-20 bg-blue-200 mb-2 rounded">{{ $post->category }}</div>
+                @else
+                <div class="text-orange-600 text-center w-20 bg-orange-200 mb-2 rounded">{{ $post->category }}</div>
+                @endif
                     <div class="bg-white w-full  rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
                         <div class="mt-4">
                             <div class="flex">
@@ -53,11 +58,23 @@
                         @else
                         <span class="badge2">コメントなし</span>
                         @endif
-                        @can('admin')
+                        @if($post->category === '施術')
+                            @if($post->user_id === Auth()->user()->id)
+                            <a href="{{route('post.show', $post)}}" style="color:white;">
+                            <x-primary-button class="float-right">コメントする</x-primary-button>
+                            </a>
+                            @else
+                            @can('admin')
+                            <a href="{{route('post.show', $post)}}" style="color:white;">
+                            <x-primary-button class="float-right">コメントする</x-primary-button>
+                            </a>
+                            @endcan
+                            @endif
+                        @else
                         <a href="{{route('post.show', $post)}}" style="color:white;">
                             <x-primary-button class="float-right">コメントする</x-primary-button>
                         </a>
-                        @endcan
+                        @endif
                         </div>
                     </div>
                 </div>
