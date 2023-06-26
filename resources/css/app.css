@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btnsetg {
+  @apply mr-4 font-bold text-base text-center bg-gray-600 whitespace-nowrap;
+}
+
+.btnsetr {
+  @apply mr-4 font-bold text-base text-center bg-red-700 whitespace-nowrap;
+}
+
+.btnsetm {
+  @apply mr-4 font-bold text-base text-center bg-green-700 whitespace-nowrap;
+}
