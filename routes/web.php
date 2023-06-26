@@ -7,6 +7,10 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\NiceController;
+use App\Http\Controllers\MyPostController;
+use App\Http\Controllers\MyCommentController;
+use App\Http\Controllers\MyNiceController;
+
 
 
 /*
@@ -36,11 +40,12 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('post/mypost', [PostController::class, 'mypost'])->name('post.mypost');
+Route::get('post/mypost', [MyPostController::class, 'index'])->name('mypost.index');
 Route::middleware(['can:admin'])->group(function () {
-    Route::get('post/mycomment', [PostController::class, 'mycomment'])->name('post.mycomment');
+    Route::get('post/mycomment', [MyCommentController::class, 'index'])->name('mycomment.index');
 });
-Route::get('post/mynice', [PostController::class, 'mynice'])->name('post.mynice');
+Route::get('post/mynice', [MyNiceController::class, 'index'])->name('mynice.index');
+
 Route::resource('post',PostController::class);
 
 Route::post('post/comment/store', [CommentController::class, 'store'])->name('comment.store');

@@ -28,6 +28,11 @@
                             <input type="text" name="email" class="w-auto py-2 placeholder-gray-300 border border-gray-300 rounded-md" id="email" value="{{old('email')}}" placeholder="Enter Email">
                         </div>
                     </div>
+                    <a href="/">
+                    <x-secondary-button class="ml-3">
+                        戻る
+                    </x-secondary-button>
+                    </a>
                     <x-primary-button class="mt-4">
                         送信する
                     </x-primary-button>

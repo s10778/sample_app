@@ -18,14 +18,14 @@
                     <x-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
                         新規作成
                     </x-nav-link>
-                    <x-nav-link :href="route('post.mypost')" :active="request()->routeIs('post.mypost')">
+                    <x-nav-link :href="route('mypost.index')" :active="request()->routeIs('mypost.index')">
                         自分の投稿
                     </x-nav-link>
-                    <x-nav-link :href="route('post.mynice')" :active="request()->routeIs('post.mynice')">
+                    <x-nav-link :href="route('mynice.index')" :active="request()->routeIs('mynice.index')">
                         いいねした投稿
                     </x-nav-link>
                     @can('admin')
-                    <x-nav-link :href="route('post.mycomment')" :active="request()->routeIs('post.mycomment')">
+                    <x-nav-link :href="route('mycomment.index')" :active="request()->routeIs('mycomment.index')">
                         コメントした投稿
                     </x-nav-link>
                     <x-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
@@ -89,14 +89,14 @@
             <x-responsive-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
                 新規作成
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('post.mypost')" :active="request()->routeIs('post.mypost')">
+            <x-responsive-nav-link :href="route('mypost.index')" :active="request()->routeIs('mypost.index')">
                 自分の投稿
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('post.mynice')" :active="request()->routeIs('post.mynice')">
+            <x-responsive-nav-link :href="route('mynice.index')" :active="request()->routeIs('mynice.index')">
                 いいねした投稿
             </x-responsive-nav-link>
             @can('admin')
-            <x-responsive-nav-link :href="route('post.mycomment')" :active="request()->routeIs('post.mycomment')">
+            <x-responsive-nav-link :href="route('mycomment.index')" :active="request()->routeIs('mycomment.index')">
                 コメントした投稿
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">

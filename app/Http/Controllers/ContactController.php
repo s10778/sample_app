@@ -4,20 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Http\Requests\ContactCreateRequest;
 
 class ContactController extends Controller
 {
-    public function create(){
+    public function create()
+    {
         return view('contact.create');
     }
 
-    public function store(Request $request){
-        $inputs=request()->validate([
-            'title'=>'required|max:255',
-            'email'=>'required|email|max:255',
-            'body'=>'required|max:1000',
-        ]);
+    public function store(ContactCreateRequest $request)
+    {
+        $inputs = $request->validated();
+
         Contact::create($inputs);
-        return back()->with('message','メールを送信したのでご確認ください');
+
+        return back()->with('message', 'お問い合わせいただき、誠にありがとうございます');
     }
 }

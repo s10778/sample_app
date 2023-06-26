@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostUpdateRequest;
 use App\Models\Comment;
 use App\Models\Nice;
 
@@ -16,9 +17,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts=Post::orderBy('created_at','desc')->paginate(5);
-        $user=auth()->user();
-        return view('post.index',compact('posts','user'));
+        $posts = Post::orderBy('created_at', 'desc')->paginate(5);
+        $user = auth()->user();
+
+        return view('post.index', compact('posts', 'user'));
     }
 
     /**
@@ -37,33 +39,23 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostCreateRequest $request)
     {
         $body = $request['body'];
         $request['body'] = mb_convert_kana($body, 'R');
 
-        $inputs=$request->validate([
-            'category'=>'required|in:共有事項,施術',
-            'title'=>'required|max:255',
-            'body'=>'required|max:1000',
-            'image'=>'image|max:1024'
-        ]);
+        $inputs = $request->validated();
 
-        $post = new Post();
-        $post->category=$request->category;
-        $post->title=$request->title;
-        $post->body=$request->body;
-        $post->user_id=auth()->user()->id;
-
-        if (request('image')){
-            $original = request()->file('image')->getClientOriginalName();
-             // 日時追加
-            $name = date('Ymd_His').'_'.$original;
-            request()->file('image')->move('storage/images', $name);
-            $post->image = $name;
+        if ($request->hasFile('image')) {
+            $original = $request->file('image')->getClientOriginalName();
+            $name = date('Ymd_His') . '_' . $original;
+            $request->file('image')->move('storage/images', $name);
+            $inputs['image'] = $name;
         }
 
-        $post->save();
+        $inputs['user_id'] = auth()->user()->id;
+        Post::create($inputs);
+
         return redirect()->route('post.create')->with('message', '投稿を作成しました');
     }
 
@@ -76,7 +68,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $nice = Nice::where('post_id', $post->id)->where('user_id', auth()->user()->id)->first();
-        return view('post.show',compact('post','nice'));
+
+        return view('post.show', compact('post', 'nice'));
     }
 
     /**
@@ -88,6 +81,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $this->authorize('update', $post);
+
         return view('post.edit', compact('post'));
     }
 
@@ -98,27 +92,21 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostUpdateRequest $request, Post $post)
     {
         $this->authorize('update',$post);
-        $inputs=$request->validate([
-            'title'=>'required|max:255',
-            'body'=>'required|max:1000',
-            'image'=>'image|max:1024'
-        ]);
 
-        $post->title=$request->title;
-        $post->body=$request->body;
+        $inputs = $request->validated();
 
-        if (request('image')){
-            $original = request()->file('image')->getClientOriginalName();
-             // 日時追加
-            $name = date('Ymd_His').'_'.$original;
-            request()->file('image')->move('storage/images', $name);
-            $post->image = $name;
+        if ($request->hasFile('image')) {
+            $original = $request->file('image')->getClientOriginalName();
+            $name = date('Ymd_His') . '_' . $original;
+            $request->file('image')->move('storage/images', $name);
+            $inputs['image'] = $name;
         }
 
-        $post->save();
+        $post->update($inputs);
+
         return redirect()->route('post.show', $post)->with('message', '投稿を更新しました');
     }
 
@@ -130,28 +118,12 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->authorize('delete',$post);
+        $this->authorize('delete', $post);
+        
         $post->delete();
         $post->comments()->delete();
+        $post->nices()->delete();
+
         return redirect()->route('post.index')->with('message', '投稿を削除しました');
-    }
-
-    public function mypost() {
-        $user=auth()->user()->id;
-        $posts=Post::where('user_id', $user)->orderBy('created_at', 'desc')->paginate(5);
-        return view('post.mypost', compact('posts'));
-    }
-
-    public function mycomment()
-    {
-        $user = auth()->user()->id;
-        $comments = Comment::where('user_id', $user)->orderBy('created_at', 'desc')->get();
-        return view('post.mycomment', compact('comments'));
-    }
-
-    public function mynice() {
-        $user=auth()->user()->id;
-        $nices=nice::where('user_id', $user)->orderBy('created_at', 'desc')->get();
-        return view('post.mynice', compact('nices'));
     }
 }
