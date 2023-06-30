@@ -19,3 +19,7 @@
   white-space: nowrap;
   background-color: lightgrey;
 }
+
+.read {
+    background-color: #d3d3d3;  /* グレーの背景色 */
+}

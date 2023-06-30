@@ -10,6 +10,8 @@ use App\Http\Controllers\NiceController;
 use App\Http\Controllers\MyPostController;
 use App\Http\Controllers\MyCommentController;
 use App\Http\Controllers\MyNiceController;
+use App\Http\Controllers\ShowContactController;
+use App\Http\Controllers\ReadController;
 
 
 
@@ -41,9 +43,9 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('post/mypost', [MyPostController::class, 'index'])->name('mypost.index');
-Route::middleware(['can:admin'])->group(function () {
-    Route::get('post/mycomment', [MyCommentController::class, 'index'])->name('mycomment.index');
-});
+
+Route::get('post/mycomment', [MyCommentController::class, 'index'])->name('mycomment.index');
+
 Route::get('post/mynice', [MyNiceController::class, 'index'])->name('mynice.index');
 
 Route::resource('post',PostController::class);
@@ -65,4 +67,8 @@ Route::patch('roles/{user}/detach', [RoleController::class, 'detach'])->name('ro
 Route::middleware(['can:admin'])->group(function() {
     Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
     Route::delete('profile/{user}', [ProfileController::class, 'delete'])->name('profile.delete');
+
+    Route::get('showContact/index', [ShowContactController::class, 'index'])->name('showContact.index');
+    Route::get('showContact/{contact}', [ShowContactController::class, 'show'])->name('showContact.show');
+    Route::delete('showContact/{contact}', [ShowContactController::class, 'destroy'])->name('showContact.delete');
 });

@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('post.index') }}">
-                        <img src="{{asset("logo/icon-home.svg")}}" style="max-height:50px">
+                        <img src="{{asset("logo/icon-home.png")}}" style="max-height:50px">
                     </a>
                 </div>
 
@@ -24,12 +24,15 @@
                     <x-nav-link :href="route('mynice.index')" :active="request()->routeIs('mynice.index')">
                         いいねした投稿
                     </x-nav-link>
-                    @can('admin')
                     <x-nav-link :href="route('mycomment.index')" :active="request()->routeIs('mycomment.index')">
                         コメントした投稿
                     </x-nav-link>
+                    @can('admin')
                     <x-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
                         ユーザー一覧
+                    </x-nav-link>
+                    <x-nav-link :href="route('showContact.index')" :active="request()->routeIs('showContact.index')">
+                        お問い合わせ一覧
                     </x-nav-link>
                     @endcan
                 </div>
@@ -95,12 +98,15 @@
             <x-responsive-nav-link :href="route('mynice.index')" :active="request()->routeIs('mynice.index')">
                 いいねした投稿
             </x-responsive-nav-link>
-            @can('admin')
             <x-responsive-nav-link :href="route('mycomment.index')" :active="request()->routeIs('mycomment.index')">
                 コメントした投稿
             </x-responsive-nav-link>
+            @can('admin')
             <x-responsive-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
                 ユーザー一覧
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('showContact.index')" :active="request()->routeIs('showContact.index')">
+                お問い合わせ一覧
             </x-responsive-nav-link>
             @endcan
         </div>

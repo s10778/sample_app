@@ -36,9 +36,9 @@
                             <div class="flex">
                                 <div class="rounded-full w-12 h-12">
                                     {{-- アバター表示 --}}
-                                    <img src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}">
+                                    <img src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}" class="rounded-full">
                                 </div>
-                                <h1 class="text-lg text-indigo-700 font-semibold hover:underline cursor-pointer float-left pt-4">
+                                <h1 class="text-xl text-indigo-700 font-semibold hover:underline cursor-pointer float-left pt-3 ml-4">
                                     <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>
                                 </h1>
                             </div>

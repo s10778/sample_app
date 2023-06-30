@@ -16,9 +16,9 @@
                         <div class="flex">
                             <div class="rounded-full w-12 h-12">
                                 {{-- アバター表示 --}}
-                                <img src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}">
+                                <img src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}" class="rounded-full">
                             </div>
-                            <h1 class="text-lg text-gray-700 font-semibold float-left pt-4">
+                            <h1 class="text-xl font-semibold float-left pt-3 ml-4">
                                 {{ $post->title }}
                             </h1>
                         </div>
@@ -41,6 +41,11 @@
                             </form>
                             @endcan
                             @endif
+                            <a href="/post">
+                                <x-secondary-button class="ml-3">
+                                    戻る
+                                </x-secondary-button>
+                            </a>
                         </div>
                         <div>
                             <p class="mt-4 text-gray-600 py-4 overflow-hidden">{{$post->body}}</p>
@@ -83,8 +88,8 @@
                     {{$comment->body}}
                     <div class="text-sm font-semibold flex flex-row-reverse">
                         <p class="float-left pt-4"> {{ $comment->user->name??'削除されたユーザー' }} • {{$comment->created_at->diffForHumans()}}</p>
-                        <span class="rounded-full w-12 h-12">
-                        <img src="{{asset('storage/avatar/'.($comment->user->avatar??'user_default.jpg'))}}">
+                        <span class="rounded-full w-10 h-10 mr-1 mt-1">
+                        <img src="{{asset('storage/avatar/'.($comment->user->avatar??'user_default.jpg'))}}" class="rounded-full">
                         </span>
                     </div>
                 </div>

@@ -24,11 +24,9 @@
                 </div>
 
                 <div class="w-full flex flex-col">
-
                     @if(isset($post->image))
                         <img src="{{ asset('storage/images/'.$post->image) }}" class="mx-auto" style="height:300px;">
                     @endif
-
                     <label for="image" class="font-semibold leading-none mt-4">画像 （1MBまで）</label>
                     <div>
                     <input id="image" type="file" name="image">
@@ -38,7 +36,7 @@
                 <x-primary-button class="mt-4">
                     送信する
                 </x-primary-button>
-                
+
             </form>
         </div>
     </div>

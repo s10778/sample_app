@@ -41,9 +41,6 @@ class PostController extends Controller
      */
     public function store(PostCreateRequest $request)
     {
-        $body = $request['body'];
-        $request['body'] = mb_convert_kana($body, 'R');
-
         $inputs = $request->validated();
 
         if ($request->hasFile('image')) {
@@ -119,7 +116,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $this->authorize('delete', $post);
-        
+
         $post->delete();
         $post->comments()->delete();
         $post->nices()->delete();

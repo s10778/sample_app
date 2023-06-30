@@ -23,9 +23,9 @@
                         <div class="flex">
                             <div class="rounded-full w-12 h-12">
                                 {{-- アバター表示 --}}
-                                <img src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}">
+                                <img src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}" class="rounded-full">
                             </div>
-                            <h1 class="text-lg text-indigo-700 font-semibold hover:underline cursor-pointer float-left pt-4">
+                            <h1 class="text-xl text-indigo-700 font-semibold hover:underline cursor-pointer float-left pt-3 ml-4">
                                 <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>
                             </h1>
                         </div>
@@ -33,7 +33,7 @@
                         <div class="flex justify-end mt-4">
                             <a href="{{route('post.show', $post)}}"><x-primary-button class="float-right">詳細へ</x-primary-button></a>
                         </div>
-                        <p class="mt-4 text-gray-600 py-4 overflow-hidden">{{Str::limit ($post->body, 100, '...') }}</p>
+                        <p class="mt-4 text-gray-600 py-4 overflow-hidden">{{ Str::limit ($post->body, 100, '...') }}</p>
                         <div class="text-sm font-semibold flex flex-row-reverse">
                             <p>{{ $post->user->name??'削除されたユーザー'}}•{{ $post->created_at->diffForHumans() }}</p>
                         </div>

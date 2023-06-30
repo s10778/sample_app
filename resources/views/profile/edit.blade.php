@@ -67,8 +67,8 @@
 
             @can('admin')
             <div class="mt-5">
-              <h4 class="mb-3">役割付与・削除（アドミンユーザーにのみ表示）</h4>
-              <table class="text-left w-full border-collapse mt-8">
+            <h4 class="mb-3">役割付与・削除（アドミンユーザーにのみ表示）</h4>
+            <table class="text-left w-full border-collapse mt-8">
                 <tr class="bg-green-600 text-center">
                     <th>役割</th>
                     <th>付与</th>
@@ -117,7 +117,7 @@
                     </td>
                 </tr>
                 @endforeach
-              </table>
+            </table>
             </div>
             @endcan
         </div>

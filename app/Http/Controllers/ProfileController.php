@@ -51,6 +51,7 @@ class ProfileController extends Controller
         }
         $user->posts()->delete();
         $user->comments()->delete();
+        $user->nices()->delete();
         $user->delete();
 
         return back()->with('message', 'ユーザーを削除しました');

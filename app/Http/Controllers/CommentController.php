@@ -15,12 +15,12 @@ class CommentController extends Controller
      */
     public function store(CommentCreateRequest $request)
     {
-        $inputs=$request->validated();
+        $inputs = $request->validated();
 
-        $comment=Comment::create([
-            'body'=>$inputs['body'],
-            'user_id'=>auth()->user()->id,
-            'post_id'=>$request->post_id
+        $comment = Comment::create([
+            'body' => $inputs['body'],
+            'user_id' => auth()->user()->id,
+            'post_id' => $request->post_id
         ]);
 
         return back();
